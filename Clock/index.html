@@ -15,12 +15,16 @@
             <div class="hand second-hand"></div>
     </div>
     </div>
+
+    <audio src="sounds/tick.wav" ></audio>
+
     <script>
 
         const secondHand = document.querySelector(".second-hand");
         const minHand = document.querySelector(".minute-hand");
         const hourHand = document.querySelector(".hour-hand");
         const body = document.querySelector("body");
+        const audio = document.querySelector("audio");
 
         function setDate(){
             const now = new Date();
@@ -35,16 +39,12 @@
 
             const hours = now.getHours();
             const hoursDegrees = (((hours-12)/12) * 360) + 90;
-            hourHand.style.transform = `rotate(${hoursDegrees}deg)`
-
-            
-            
+            hourHand.style.transform = `rotate(${hoursDegrees}deg)`         
+            audio.play();
         }
 
 
-        function setBackground(){
-
-            
+        function setBackground(){           
             const now = new Date();
             if(now.getHours() >= 5 && now.getHours() < 12){
                 body.classList.add('morning');

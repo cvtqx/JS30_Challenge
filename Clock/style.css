@@ -44,7 +44,7 @@ body{
     padding: 2rem;
     border: 15px solid white;   
     border-radius: 50%;
-    box-shadow: 0 0 1rem;
+    filter: drop-shadow(3px 8px 2px rgb(0 0 0 / 0.4));
 }
 
 .clock-face{
