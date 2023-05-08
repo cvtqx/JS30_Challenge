@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas</title>
+</head>
+<body>
+  <canvas id="draw" width="800" height="800"></canvas>
+  <script>
+const canvas = document.querySelector('#draw');
+//method returns a drawing context on the canvas
+const ctx = canvas.getContext('2d');
+//resize the canvas to be the size of the screen
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+ctx.strokeStyle = '#BADA55';
+//determine the shape used to join two line segments where they meet
+ctx.lineJoin = 'round';
+//determine the shape used to draw the end points of lines
+ctx.lineCap = 'round';
+ctx.lineWidth = 100;
+
+
+let isDrawing = false;
+//position
+let lastX = 0;
+let lastY = 0;
+//color
+let hue = 0;
+let direction = true;
+
+function draw(e){
+    if(!isDrawing) return; //stop the function from running when they are not mousd down
+    console.log(e);
+    ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+    
+    //start a line
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(e.offsetX, e.offsetY); //offsetX and offsetY variable are taken from the e object (in console)
+    ctx.stroke();
+    //update values of lastX and lastY. ES6 syntax for same thing: [lastX, lastY] = [e.offsetX, e.offsetY];
+    lastX = e.offsetX;
+    lastY = e.offsetY;
+    hue++; //increments color hue to create a rainbow
+    if(hue >= 360){
+        hue = 0;
+    }
+if(ctx.lineWidth >= 100 || ctx.lineWidth <= 1){
+    direction = !direction
+}
+
+if(direction){
+ctx.lineWidth++;
+}else{
+    ctx.lineWidth--;
+}
+
+}
+
+canvas.addEventListener('mousedown', (e) => {
+    isDrawing = true;
+    [lastX, lastY] = [e.offsetX, e.offsetY];
+});
+
+canvas.addEventListener('mousemove', draw);
+canvas.addEventListener('mouseup', () => isDrawing = false);
+canvas.addEventListener('mouseout', () => isDrawing = false);
+  </script>  
+
+  <style>
+    html, body{
+        margin: 0;
+    }
+  </style>
+</body>
+</html>
