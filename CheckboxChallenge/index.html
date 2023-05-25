@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkbox challenge</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    <div class="inbox">
+        <div class="item">
+            <input type="checkbox">
+            <p>This is item number one</p>
+        </div>
+        <div class="item">
+            <input type="checkbox">
+            <p>This is item number two</p>
+        </div>
+        <div class="item">
+            <input type="checkbox">
+            <p>This is item number three</p>
+        </div>
+        <div class="item">
+            <input type="checkbox">
+            <p>This is item number four</p>
+        </div>
+        <div class="item">
+            <input type="checkbox">
+            <p>This is item number five</p>
+        </div>
+        <div class="item">
+            <input type="checkbox">
+            <p>This is item number six</p>
+        </div>
+        <div class="item">
+            <input type="checkbox">
+            <p>This is item number seven</p>
+        </div>
+    </div>
+    <script>
+    //select all checkboxes
+    const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]')
+
+    let lastchecked
+
+    function handleCheck(event){
+        let inBetween = false
+        //check if the shift key is down and checkbox is checked
+        if(event.shiftKey && this.checked){
+        //loop over checkboxes
+        checkboxes.forEach(checkbox => {
+            if(checkbox === this || checkbox === lastchecked){
+                inBetween = !inBetween
+            }
+            if(inBetween){
+                checkbox.checked = true
+            }
+        })
+        }
+        lastchecked = this;
+    }
+
+    checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck))
+             
+
+    </script>
+    
+</body>
+</html>
